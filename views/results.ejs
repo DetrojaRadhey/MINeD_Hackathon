@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Optimization Results</title>
+  <link rel="stylesheet" href="/public/styles/styles.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background: #f5f7fa;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .card-container {
+      display: flex;
+      gap: 15px;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .card {
+      flex: 1;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      transition: transform 0.3s ease-in-out;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .table-container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      animation: slideUp 0.8s ease-in-out;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .badge {
+      padding: 5px 10px;
+      border-radius: 12px;
+    }
+    .in-progress { background: #d1e7fd; color: #0d6efd; }
+    .scheduled { background: #fff3cd; color: #856404; }
+    .completed { background: #d4edda; color: #155724; }
+    .table tr:hover {
+      background-color: #f1f1f1;
+      transition: background-color 0.3s;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="text-center">Optimization Results</h1>
+    <div class="alert alert-info" role="alert">
+      <%= message %>
+    </div>
+    
+    <div class="card-container">
+      <div class="card">
+        <h5>Total Trips</h5>
+        <p><strong>24</strong></p>
+        <small class="text-success">↑ 12% from yesterday</small>
+      </div>
+      <div class="card">
+        <h5>Efficiency Rate</h5>
+        <p><strong>87%</strong></p>
+        <small class="text-success">↑ 5% from last week</small>
+      </div>
+      <div class="card">
+        <h5>Total Distance</h5>
+        <p><strong>342 km</strong></p>
+        <small class="text-danger">↓ 3% from average</small>
+      </div>
+      <div class="card">
+        <h5>Avg. Time</h5>
+        <p><strong>1.8h</strong></p>
+        <small class="text-success">↑ 8% improvement</small>
+      </div>
+    </div>
+    
+    <iframe src="<%= mapUrl %>" width="100%" height="500px" class="mb-4"></iframe>
+    
+    <div class="table-container">
+      <table class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th>TRIP ID</th>
+            <th>Shipment ID</th>
+            <th>Location</th>
+            <th>Time Slot</th>
+            <th>Status</th>
+            <th>Distance</th>
+            <th>Utilization</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% trips.forEach(trip => { %>
+            <% trip.tripShipments.forEach((shipment, index) => { %>
+              <tr>
+                <td><%= index === 0 ? trip.tripCounter : '' %></td>
+                <td><%= shipment.Shipment_ID || 'N/A' %></td>
+                <td><%= shipment.Latitude %>, <%= shipment.Longitude %></td>
+                <td><%= shipment.Delivery_Timeslot || 'N/A' %></td>
+                <td>
+                  <% if (shipment.Status === 'In Progress') { %>
+                    <span class="badge in-progress">In Progress</span>
+                  <% } else if (shipment.Status === 'Scheduled') { %>
+                    <span class="badge scheduled">Scheduled</span>
+                  <% } else { %>
+                    <span class="badge completed">Completed</span>
+                  <% } %>
+                </td>
+                <td><%= trip.tripDistance.toFixed(2) %> km</td>
+                <td><%= trip.capacityUtilization %> %</td>
+              </tr>
+            <% }) %>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard Upload</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <style>
+    body {
+      background: linear-gradient(to bottom, #f0f8ff, #e0f7fa);
+      height: 100vh;
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .dashboard {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .welcome {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      text-align: center;
+      background: linear-gradient(to bottom, #ffffff, #f8f9fa);
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .progress {
+      height: 10px;
+      border-radius: 5px;
+    }
+
+    .progress-label {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .upload-container {
+      text-align: center;
+      margin-top: 2rem;
+      background: #e3f2fd;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+      border-radius: 12px;
+      padding: 0.75rem 2rem;
+      font-size: 1rem;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+
+    .form-control {
+      border-radius: 8px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <div class="welcome">
+      <h1 class="fw-bold">Welcome Back, John</h1>
+      <p class="text-muted">Here's what's happening with your deliveries today</p>
+    </div>
+
+    <div class="metrics">
+      <div class="card">
+        <h5>Total Trips</h5>
+        <h2 class="text-primary">17</h2>
+        <p class="text-muted">From uploaded data</p>
+      </div>
+      <div class="card">
+        <h5>Total Distance</h5>
+        <h2 class="text-success">114.49 km</h2>
+        <p class="text-muted">Combined routes</p>
+      </div>
+      <div class="card">
+        <h5>Avg Utilization</h5>
+        <h2 class="text-warning">83.34%</h2>
+        <p class="text-muted">Capacity usage</p>
+      </div>
+      <div class="card">
+        <h5>Total Shipments</h5>
+        <h2 class="text-danger">43</h2>
+        <p class="text-muted">Across all trips</p>
+      </div>
+    </div>
+
+    <div class="mt-5">
+      <h4 class="fw-bold">Performance Overview</h4>
+      <div class="mb-4">
+        <div class="progress-label">Route Efficiency</div>
+        <div class="progress">
+          <div class="progress-bar bg-primary" role="progressbar" style="width: 92%;"></div>
+        </div>
+      </div>
+      <div class="mb-4">
+        <div class="progress-label">Vehicle Utilization</div>
+        <div class="progress">
+          <div class="progress-bar bg-success" role="progressbar" style="width: 87%;"></div>
+        </div>
+      </div>
+      <div class="mb-4">
+        <div class="progress-label">Customer Satisfaction</div>
+        <div class="progress">
+          <div class="progress-bar bg-purple" role="progressbar" style="width: 95%; background-color: #8a2be2;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="upload-container">
+      <h5 class="mb-3">Upload Your Excel File</h5>
+      <form action="/optimize" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".xlsx" class="form-control mb-3" style="max-width: 300px; margin: 0 auto;" required>
+        <button type="submit" class="btn btn-primary">Optimize</button>
+      </form>
+    </div>
+
+    <div class="footer">
+      <p>&copy; 2025 Dashboard App. All rights reserved.</p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
